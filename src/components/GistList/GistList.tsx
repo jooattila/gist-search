@@ -1,9 +1,11 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Gist from '../Gist/Gist';
 import testData from '../../testData.json';
+import DetailedGist from '../DetailedGist/DetailedGist';
 
 const GistList = (props: { username: any }): ReactElement => {
   const [gistList, setGistList] = useState<any>([]);
+  const [gistId, setGistId] = useState('');
 
   const getGists = async () => {
     try {
@@ -20,15 +22,28 @@ const GistList = (props: { username: any }): ReactElement => {
     getGists();
   });
 
+  const getId = (id: string) => {
+    setGistId(id);
+  };
+
   return (
     <div>
-      {gistList.map((gist: any) => {
-        return (
-          <div key={gist.id}>
-            <Gist data={gist} />
-          </div>
-        );
-      })}
+      {gistId !== '' ? (
+        <DetailedGist
+          data={gistList.find((gist: { id: string }) => gist.id === gistId)}
+          handleBack={() => {
+            setGistId('');
+          }}
+        />
+      ) : (
+        gistList.map((gist: any) => {
+          return (
+            <div key={gist.id}>
+              <Gist data={gist} getId={getId} />
+            </div>
+          );
+        })
+      )}
     </div>
   );
 };

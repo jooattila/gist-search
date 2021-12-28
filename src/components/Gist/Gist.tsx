@@ -22,7 +22,12 @@ const Gist = (props: any) => {
   const sorted = forks.sort((a: any, b: any) => (a.created_at < b.created_at ? 1 : -1)).slice(0, 3);
 
   return (
-    <div className='gistDiv'>
+    <div
+      className='gistDiv'
+      onClick={() => {
+        props.getId(props.data.id);
+      }}
+    >
       <h3>id: {props.data.id}</h3>
       <a href={props.data.url}>Url: {props.data.url}</a>
       <p>Created at: {props.data.created_at}</p>
