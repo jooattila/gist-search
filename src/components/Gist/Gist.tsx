@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import FileTag from '../FileTag/FileTag';
+import React, { ReactElement, useEffect, useState } from 'react';
+import Avatar from '../Avatar/Avatar';
 import './index.css';
 
-const Gist = (props: any) => {
-  const languages = Object.values(props.data.files).map((file: any) => file.language);
-  const uniqueLanguages = [...new Set<any>(languages)];
+const Gist = (props: {
+  data: { forks_url: string; files: {}; id: string; created_at: string; url: string };
+  getId: (arg0: string) => void;
+}): ReactElement => {
+  const fileLanguages = [...new Set<string>(Object.values(props.data.files).map((file: any) => file.language))];
   const forksUrl = props.data.forks_url;
   const [forks, setForks] = useState([]);
 
-  const getForks = async () => {
-    try {
-      setForks(await fetch(forksUrl).then(res => res.json()));
-      forks.forEach((element: { created_at: any }) => {
-        element.created_at = Date.parse(element.created_at);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  useEffect(() => {
+    const getForks = async (): Promise<void> => {
+      try {
+        const data = await fetch(forksUrl).then(res => res.json());
 
-  const sorted = forks.sort((a: any, b: any) => (a.created_at < b.created_at ? 1 : -1)).slice(0, 3);
+        const sorted = data
+          .sort(
+            (first: { created_at: string }, second: { created_at: string }) =>
+              Date.parse(first.created_at) - Date.parse(second.created_at),
+          )
+          .slice(0, 3);
+        setForks(sorted);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getForks();
+  }, []);
 
   return (
     <div
@@ -29,18 +37,24 @@ const Gist = (props: any) => {
       }}
     >
       <h3>id: {props.data.id}</h3>
-      <a href={props.data.url}>Url: {props.data.url}</a>
-      <p>Created at: {props.data.created_at}</p>
-      <a href={props.data.forks_url}>Forks url: {props.data.forks_url}</a>
-      <p className='languageLabel'>Languages: </p>
-      {uniqueLanguages.map(language => {
-        return <FileTag language={language} key={language} />;
-      })}
-      <button onClick={getForks}>Get Forks</button>
-      {sorted &&
-        sorted.map((fork: any) => {
+      <p>url: {props.data.url}</p>
+      <p>created at: {props.data.created_at}</p>
+      <p>forks url: {props.data.forks_url}</p>
+      <div>
+        {fileLanguages.map(language => {
+          return (
+            <span key={language} className='fileTagDiv'>
+              {language}
+            </span>
+          );
+        })}
+      </div>
+      {forks.length > 0 ? <h2>Last three forkers:</h2> : <h2>No forkers found</h2>}
+
+      {forks &&
+        forks.map((fork: any) => {
           console.log(fork.owner.login);
-          return <h3 key={fork.owner.login}>username: {fork.owner.login}</h3>;
+          return <Avatar key={fork.owner.id} url={fork.owner.avatar_url} />;
         })}
     </div>
   );

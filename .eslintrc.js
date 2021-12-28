@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     extends: [
-        'eslint:recommended',
+        // 'eslint:recommended',
         'plugin:prettier/recommended',
         'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
         'plugin:@typescript-eslint/eslint-recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
@@ -47,11 +47,22 @@ module.exports = {
         'import/prefer-default-export': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-var-requires': 'off',
-        "prettier/prettier": [
+        "@typescript-eslint/ban-types": [
+            "error",
+            {
+              "extendDefaults": true,
+              "types": {
+                "{}": false
+              }
+            }
+          ],
+
+            "prettier/prettier": [
             "error",
             {
               "endOfLine": "auto"
             },
           ],
+          
     },
 }

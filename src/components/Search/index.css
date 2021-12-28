@@ -1,24 +1,27 @@
 .searchDiv {
-  background-color: rgb(57, 189, 189); /* Green */
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  font-size: 100%;
+}
+
+.searchInput,
+.searchButton {
+  font-size: 100%;
   border-radius: 10px;
+  margin-left: 10px;
+  padding: 14px;
+  background-color: rgb(57, 189, 189);
   border-width: 2px;
   border-style: solid;
+  border-color: black;
 }
 
-.searchInput {
-  font-size: 24px;
-  background-color: transparent;
-  border: none;
+.searchButton:hover {
+  cursor: pointer;
+  background-color: rgb(110, 190, 110);
 }
 
-.searchInput:focus {
-  border-color: transparent;
-}
-
-.searchButton {
-  font-size: 24px;
+.searchInput:focus,
+.searchInput:hover {
+  background-color: rgb(110, 190, 110);
 }

@@ -1,49 +1,52 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Gist from '../Gist/Gist';
-import testData from '../../testData.json';
-import DetailedGist from '../DetailedGist/DetailedGist';
+import './index.css';
 
-const GistList = (props: { username: any }): ReactElement => {
+import GistDetails from '../GistDetails/GistDetails';
+
+const GistList = (props: { username: string }): ReactElement => {
   const [gistList, setGistList] = useState<any>([]);
   const [gistId, setGistId] = useState('');
-
-  const getGists = async () => {
-    try {
-      //   fetch(`https://api.github.com/users/${props.username}/gists`).then(res => res.json());
-      if (testData.length > 0) {
-        setGistList(testData);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useState(() => {
-    getGists();
-  });
 
   const getId = (id: string) => {
     setGistId(id);
   };
 
+  useEffect(() => {
+    const getGists = async () => {
+      try {
+        const data = await fetch(`https://api.github.com/users/${props.username}/gists`).then(res => res.json());
+        setGistList(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    setGistId('');
+    getGists();
+  }, [props.username]);
+
   return (
     <div>
       {gistId !== '' ? (
-        <DetailedGist
+        <GistDetails
           data={gistList.find((gist: { id: string }) => gist.id === gistId)}
           handleBack={() => {
             setGistId('');
           }}
         />
       ) : (
-        gistList.map((gist: any) => {
-          return (
-            <div key={gist.id}>
-              <Gist data={gist} getId={getId} />
-            </div>
-          );
-        })
+        <div className='resultDiv'>
+          {gistList.map((gist: any) => {
+            return (
+              <div key={gist.id}>
+                <Gist data={gist} getId={getId} />
+              </div>
+            );
+          })}
+        </div>
       )}
+
+      {gistList.length === 0 && <h2 className='noResult'> No results found! </h2>}
     </div>
   );
 };
