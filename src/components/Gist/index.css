@@ -1,0 +1,10 @@
+.gistDiv {
+  border-radius: 20px;
+  background-color: rgb(57, 189, 189);
+  width: auto;
+  padding: 5px;
+  border-width: 1px;
+  border-color: black;
+  margin-top: 10px;
+  border-style: solid;
+}

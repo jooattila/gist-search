@@ -1,0 +1,24 @@
+.searchDiv {
+  background-color: rgb(57, 189, 189); /* Green */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.searchInput {
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+}
+
+.searchInput:focus {
+  border-color: transparent;
+}
+
+.searchButton {
+  font-size: 24px;
+}
