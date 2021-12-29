@@ -37,6 +37,9 @@
 
 ## About The Project
 
+People share gists on GitHub to help and increase the GitHub community. In this application people can search for GitHub users' gists and,
+get details about them.
+
 The motivation behind the Gist Search project is to practice and learn new things. Every time people create a project from scratch, there are some bugs, problems which have to be solved and this is the best way to learn things easily and fast.
 
 ### For API Requests Used
@@ -77,6 +80,7 @@ To get a local copy up and running follow these simple steps.
 ## Usage
 
 1. Start the application with `npm start`.
+2. Type a GitHub username in the search bar to get that user's public gists.
 
 ## Contact
 
