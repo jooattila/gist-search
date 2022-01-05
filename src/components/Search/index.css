@@ -1,0 +1,27 @@
+.searchDiv {
+  text-align: center;
+  text-decoration: none;
+  font-size: 100%;
+}
+
+.searchInput,
+.searchButton {
+  font-size: 100%;
+  border-radius: 10px;
+  margin-left: 10px;
+  padding: 14px;
+  background-color: rgb(57, 189, 189);
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+.searchButton:hover {
+  cursor: pointer;
+  background-color: rgb(110, 190, 110);
+}
+
+.searchInput:focus,
+.searchInput:hover {
+  background-color: rgb(110, 190, 110);
+}

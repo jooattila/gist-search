@@ -1,0 +1,16 @@
+.noResult {
+  color: black;
+  font-size: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.resultDiv {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-top: 10px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
